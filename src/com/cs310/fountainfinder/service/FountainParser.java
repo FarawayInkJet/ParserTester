@@ -2,8 +2,11 @@ package com.cs310.fountainfinder.service;
 
 
 import org.xml.sax.Attributes;
+
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
+
+import com.cs310.fountainfinder.client.FountainSerializable;
 
 
 /**
@@ -17,7 +20,7 @@ public class FountainParser extends DefaultHandler {
 	boolean Status = false;
 	boolean Maintainer = false;
 	private FountainRegistry FountainRegistry;
-	private Fountains currentFountain;
+	private FountainSerializable currentFountain;
 	private String currentLocation;
 	private String currentLatLong;
 	private String currentStatus;
@@ -34,7 +37,7 @@ public class FountainParser extends DefaultHandler {
 	@Override
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 		if (qName.equalsIgnoreCase("Placemark")) {
-			currentFountain = new Fountains(attributes.getValue("id"));
+			currentFountain = new FountainSerializable(attributes.getValue("id"));
 			// System.out.println(attributes.getValue("id"));  works
 		}
 		else if (qName.equalsIgnoreCase("coordinates")) {
